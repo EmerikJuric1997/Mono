@@ -1,0 +1,6 @@
+C:\Users\Korisnik\source\repos\Test\GameShop.DAL\bin\Debug\GameShop.DAL.dll
+C:\Users\Korisnik\source\repos\Test\GameShop.DAL\bin\Debug\GameShop.DAL.pdb
+C:\Users\Korisnik\source\repos\Test\GameShop.DAL\obj\Debug\GameShop.DAL.csproj.AssemblyReference.cache
+C:\Users\Korisnik\source\repos\Test\GameShop.DAL\obj\Debug\GameShop.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\source\repos\Test\GameShop.DAL\obj\Debug\GameShop.DAL.dll
+C:\Users\Korisnik\source\repos\Test\GameShop.DAL\obj\Debug\GameShop.DAL.pdb

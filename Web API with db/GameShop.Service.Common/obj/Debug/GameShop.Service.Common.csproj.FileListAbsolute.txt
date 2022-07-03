@@ -1,0 +1,6 @@
+C:\Users\Korisnik\source\repos\Test\GameShop.Service.Common\bin\Debug\GameShop.Service.Common.dll
+C:\Users\Korisnik\source\repos\Test\GameShop.Service.Common\bin\Debug\GameShop.Service.Common.pdb
+C:\Users\Korisnik\source\repos\Test\GameShop.Service.Common\obj\Debug\GameShop.Service.Common.csproj.AssemblyReference.cache
+C:\Users\Korisnik\source\repos\Test\GameShop.Service.Common\obj\Debug\GameShop.Service.Common.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\source\repos\Test\GameShop.Service.Common\obj\Debug\GameShop.Service.Common.dll
+C:\Users\Korisnik\source\repos\Test\GameShop.Service.Common\obj\Debug\GameShop.Service.Common.pdb

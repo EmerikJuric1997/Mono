@@ -1,0 +1,73 @@
+CREATE TABLE Games_Table
+(
+	Id UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+	GameName VARCHAR (50),
+	GameDescription VARCHAR (50),
+	AgeRestriction INT
+ 
+)
+
+INSERT INTO Games_Table VALUES (default, 'Crash Bandicoot', '3D Platformer', 10);
+INSERT INTO Games_Table VALUES (default, 'League of Legends', 'Fight and win', 15);
+INSERT INTO Games_Table VALUES (default, 'Roblox', 'Have fun!', 8);
+INSERT INTO Games_Table VALUES (default, 'PUBG', 'Explore guns.', 18);
+INSERT INTO Games_Table VALUES (default, 'COD', 'Destroy the enermy', 18);
+INSERT INTO Games_Table VALUES (default, 'Tetris', 'Puzzle game!', 2);
+INSERT INTO Games_Table VALUES (default, 'Fifa 22', 'Football', 6);
+INSERT INTO Games_Table VALUES (default, 'NBA 22', 'Basketball', 6);
+INSERT INTO Games_Table VALUES (default, 'SSX3', 'Snowboard and explore the mountains', 10);
+INSERT INTO Games_Table VALUES (default, 'Tony Hawk Pro Skater', 'Skate and have fun around the city', 10);
+
+
+CREATE TABLE Shops_Table
+(
+	Id UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+	ShopName VARCHAR (50),
+	ShopLocation VARCHAR (50),
+	AddressNumber INT
+ 
+)
+
+INSERT INTO Shops_Table VALUES (default, 'Pevec', 'Osijek Kanizliceva', 32);
+INSERT INTO Shops_Table VALUES (default, 'Lidl', 'Osijek Vukovarska', 23);
+INSERT INTO Shops_Table VALUES (default, 'Kaufland', 'Osijek Vinkovacka', 42);
+INSERT INTO Shops_Table VALUES (default, 'Konzum', 'Osijek Kardinala Alojzija Stepinca', 54);
+INSERT INTO Shops_Table VALUES (default, 'Plodine', 'Osijek Gunduliceva', 67);
+
+
+CREATE TABLE Shop_Game_Table
+(
+	Id UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+	ShopId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Shops_Table(Id),
+	GameId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Games_Table(Id),
+ 
+)
+
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Plodine'), (SELECT Id FROM Games_Table where GameName='Crash Bandicoot'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Plodine'), (SELECT Id FROM Games_Table where GameName='League of Legends'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Kaufland'), (SELECT Id FROM Games_Table where GameName='Roblox'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Kaufland'), (SELECT Id FROM Games_Table where GameName='PUBG'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Konzum'), (SELECT Id FROM Games_Table where GameName='COD'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Konzum'), (SELECT Id FROM Games_Table where GameName='Tetris'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Pevec'), (SELECT Id FROM Games_Table where GameName='Fifa 22'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Pevec'), (SELECT Id FROM Games_Table where GameName='NBA 22'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Lidl'), (SELECT Id FROM Games_Table where GameName='SSX3'));
+INSERT INTO Shop_Game_Table VALUES (default, (SELECT Id FROM Shops_Table where ShopName='Lidl'), (SELECT Id FROM Games_Table where GameName='Tony Hawk Pro Skater'));
+
+
+
+
+
+SELECT gt.GameName, gt.GameDescription, gt.AgeRestriction, st.ShopName, st.ShopLocation
+FROM Shops_Table st
+INNER JOIN Shop_Game_Table sgt ON st.Id = sgt.ShopId
+INNER JOIN Games_Table gt ON gt.Id = sgt.GameId
+WHERE gt.AgeRestriction > 10;
+
+SELECT gt.GameName, gt.GameDescription, gt.AgeRestriction, st.ShopName, st.ShopLocation
+FROM Shops_Table st
+INNER JOIN Shop_Game_Table sgt ON st.Id = sgt.ShopId
+INNER JOIN Games_Table gt ON gt.Id = sgt.GameId
+WHERE st.ShopName = 'Kaufland'
+GROUP BY gt.GameName, gt.GameDescription, gt.AgeRestriction, st.ShopName, st.ShopLocation
+HAVING gt.AgeRestriction = 18;

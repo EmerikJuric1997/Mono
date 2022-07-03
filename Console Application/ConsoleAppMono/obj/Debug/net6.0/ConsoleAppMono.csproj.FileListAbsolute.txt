@@ -1,0 +1,15 @@
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\bin\Debug\net6.0\ConsoleAppMono.exe
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\bin\Debug\net6.0\ConsoleAppMono.deps.json
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\bin\Debug\net6.0\ConsoleAppMono.runtimeconfig.json
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\bin\Debug\net6.0\ConsoleAppMono.dll
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\bin\Debug\net6.0\ConsoleAppMono.pdb
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.csproj.AssemblyReference.cache
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.AssemblyInfoInputs.cache
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.AssemblyInfo.cs
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.dll
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\refint\ConsoleAppMono.dll
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.pdb
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ConsoleAppMono.genruntimeconfig.cache
+C:\Users\Korisnik\source\repos\ConsoleAppMono\ConsoleAppMono\obj\Debug\net6.0\ref\ConsoleAppMono.dll

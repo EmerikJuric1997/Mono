@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.SqlClient;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace project.WebApi.Controllers
 {
@@ -16,46 +17,46 @@ namespace project.WebApi.Controllers
         public string connstr = "Data Source=DESKTOP-BBAM4GR\\SQLEXPRESS;Initial Catalog=MonoDB;Integrated Security=True";
 
         // GET: api/Shop
-        public HttpResponseMessage GetShops()
+        public async Task<HttpResponseMessage> GetAllShopsAsync()
         {
-
-            var conn = new SqlConnection(connstr);
-            using (conn)
-            {
-                SqlCommand command = new SqlCommand(
-                  "SELECT * FROM Shop;",
-                  conn);
-                conn.Open();
-                List<Shop> shops = new List<Shop>();
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
+                var conn = new SqlConnection(connstr);
+                using (conn)
                 {
-                    while (reader.Read())
+                    SqlCommand command = new SqlCommand(
+                      "SELECT * FROM Shop;",
+                      conn);
+                    conn.Open();
+                    List<Shop> shops = new List<Shop>();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
                     {
-                        var shop = new Shop
+                        while (await reader.ReadAsync())
                         {
-                            Id = reader.GetGuid(0),
-                            ShopName = reader.GetString(1),
-                            ShopLocation = reader.GetString(2),
-                            AddressNumber = reader.GetInt32(3)
-                        };
-                        shops.Add(shop);
+                            var shop = new Shop
+                            {
+                                Id = reader.GetGuid(0),
+                                ShopName = reader.GetString(1),
+                                ShopLocation = reader.GetString(2),
+                                AddressNumber = reader.GetInt32(3)
+                            };
+                            shops.Add(shop);
+                        }
                     }
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error!");
-                }
-                reader.Close();
+                    else
+                    {
+                        return await Task.FromResult(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error!"));
+                    }
+                    reader.Close();
 
-                return Request.CreateResponse(HttpStatusCode.OK, shops);
-            }
+                    return await Task.FromResult(Request.CreateResponse(HttpStatusCode.OK, shops));
+
+                }
         }
 
         [Route("api/Shop/{id}")]
         // GET: api/Shop/5
-        public HttpResponseMessage GetShop(Guid id)
+        public async Task<HttpResponseMessage> GetOneShopAsync(Guid id)
         {
             SqlConnection connection = new SqlConnection(connstr);
             using (connection)
@@ -66,22 +67,23 @@ namespace project.WebApi.Controllers
                 cmd.Parameters.AddWithValue("@ID", id);
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-
+                //reader.ReadAsync();
                 if (reader.HasRows)
                 {
-                    if (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         shop.Id = reader.GetGuid(0);
                     }
                 }
                 try
                 {
+                    //await
                     cmd.ExecuteNonQuery();
-                    return Request.CreateResponse(HttpStatusCode.OK, shop);
+                    return await Task.FromResult(Request.CreateResponse(HttpStatusCode.OK, shop));
                 }
                 catch (SqlException)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Error!");
+                    return await Task.FromResult(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error!"));
                 }
             }
         }

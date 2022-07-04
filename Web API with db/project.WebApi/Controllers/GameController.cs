@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.SqlClient;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace project.WebApi.Controllers
 {
@@ -16,7 +17,7 @@ namespace project.WebApi.Controllers
         public string connstr = "Data Source=DESKTOP-BBAM4GR\\SQLEXPRESS;Initial Catalog=MonoDB;Integrated Security=True";
         [Route("api/Game")]
         // GET: api/Game
-        public HttpResponseMessage GetGames()
+        public async Task<HttpResponseMessage> GetAllGamesAsync()
         {
 
             var conn = new SqlConnection(connstr);
@@ -31,7 +32,7 @@ namespace project.WebApi.Controllers
 
                 if (reader.HasRows)
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         var game = new Game
                         {
@@ -45,17 +46,18 @@ namespace project.WebApi.Controllers
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error!");
+                    return await Task.FromResult(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error!"));
                 }
                 reader.Close();
 
-                return Request.CreateResponse(HttpStatusCode.OK, games);
+                return await Task.FromResult(Request.CreateResponse(HttpStatusCode.OK, games));
             }
+        
         }
 
         [Route("api/Game/{id}")]
         // GET: api/Game/5
-        public HttpResponseMessage GetG(Guid id)
+        public async Task<HttpResponseMessage> GetOneGame(Guid id)
         {
             SqlConnection conn = new SqlConnection(connstr);
             using (conn)
@@ -69,20 +71,20 @@ namespace project.WebApi.Controllers
 
                 if (reader.HasRows)
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
                         game.Id = reader.GetGuid(0);
                     }
                 }
                 try
                 {
+                    //await
                     cmd.ExecuteNonQuery();
-                    return Request.CreateResponse(HttpStatusCode.OK, game);
+                    return await Task.FromResult(Request.CreateResponse(HttpStatusCode.OK, game));
                 }
-
                 catch (SqlException)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Error!");
+                    return await Task.FromResult(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error!"));
                 }
             }
         }
